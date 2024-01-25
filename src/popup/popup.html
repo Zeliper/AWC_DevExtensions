@@ -1,0 +1,134 @@
+<html style="min-width: 750px; min-height: 550px;">
+  <head>
+    <meta charset="UTF-8">
+    <script src="./popup.js"></script>
+    <link href="./bootstrap_libs/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="./bootstrap_libs/custom.css" rel="stylesheet">
+  </head>
+  <body>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-main-tab" type="button" role="tab" aria-controls="nav-main" aria-selected="true">메인</button>
+        <button class="nav-link" id="nav-setting-tab"type="button" role="tab" aria-controls="nav-setting" aria-selected="false">설정</button>
+        <button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled>미구현</button>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent" style="height: calc(100% - 42px);">
+      <div class="tab-pane fade show active" id="nav-main" role="tabpanel" aria-labelledby="nav-main-tab" tabindex="0">
+        <button class="btn btn-primary" type="button" id="button1" value="click">Button! </button>
+      </div>
+      <div class="tab-pane fade" id="nav-setting" role="tabpanel" aria-labelledby="nav-setting-tab" tabindex="1">
+        <div class="overflow-y-auto">
+          <!-- 아코디언 테스트 -->
+          <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  모듈 설정
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <!-- 여기가 모듈 설정부 -->
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;모듈</th>
+                        <th scope="col">모듈 명</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody-modules">
+                      <!-- 여기에 모듈 정보 추가해줘야함 -->
+                    </tbody>
+                  </table>
+                  <div id="table-plus-button">
+                    <img type="button" src="./icons/plus-circle.svg"/>
+                  </div>
+                  <!-- 설정부 끝 -->
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  단축키 설정
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <table class="table table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기능</th>
+                        <th scope="col">단축키</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tbody-hotkeys">
+                      <!-- 여기에 단축키 설정 -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  미구현
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <strong>미구현 2</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 아코디언 끝 -->
+        </div>
+      </div>
+      <div class="tab-pane fade" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="2">..124124.</div>
+    </div>
+  </body>
+  <footer>
+    <script src="./bootstrap_libs/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </footer>
+</html>
+
+
+
+<!-- TBODY !!! MODULES -->
+<!-- <tr>
+  <td scope="row">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+      <label class="form-check-label" for="flexSwitchCheckDefault">js/AwcObjectUtil</label>
+    </div>
+  </td>
+  <td>AwcObjectUtil</td>
+  <td id="tbody-gap"></td>
+  <td id="tbody-button"><img type="button" src="./icons/pencil-square.svg"/><img type="button" src="./icons/dash-square.svg"/></td>
+</tr>
+<tr>
+  <td scope="row">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">js/soaService</label>
+    </div>
+  </td>
+  <td>soaService</td>
+  <td></td>
+  <td id="tbody-button"><img type="button" src="./icons/pencil-square.svg"/><img type="button" src="./icons/dash-square.svg"/></td>
+</tr>
+<tr>
+  <td scope="row">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+      <label class="form-check-label" for="flexSwitchCheckChecked">js/soaService</label>
+    </div>
+  </td>
+  <td>여기까지 길까 과연 그럴까</td>
+  <td></td>
+  <td id="tbody-button"><img type="button" src="./icons/pencil-square.svg"/><img type="button" src="./icons/dash-square.svg"/></td>
+</tr> -->

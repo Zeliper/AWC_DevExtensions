@@ -1,0 +1,38 @@
+.overflow-y-auto{
+    height: 100%
+}
+
+.form-check label{
+    user-select: none;
+}
+
+tbody td{
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.form-check-input{
+    margin-right: 15px;
+}
+
+td img{
+    margin-inline: 8px;
+}
+
+#tbody-button{
+    width: 80px;
+}
+
+#tbody-gap{
+    min-width: 8rem;
+}
+
+#table-plus-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hide-element{
+    display: none;
+}

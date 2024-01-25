@@ -1,0 +1,44 @@
+{
+    "manifest_version": 3,
+    "name": "Hello Extensions",
+    "description": "Base Level Extension",
+    "version": "1.0",
+    "icons": {
+       "128": "image/swfapplogo128.png",
+       "16": "image/swfapplogo16.png",
+       "48": "image/swfapplogo48.png"
+    },
+    "action": {
+      "default_popup": "src/popup/disabled_popup.html",
+      "default_icon": "image/swfapplogo_disabled.png"
+    },
+    "permissions": [ 
+      "debugger",
+      "storage" 
+   ],
+    "host_permissions": [ "http://*/*", "https://*/*" ],
+    "devtools_page": "/src/devtools/devtool.html",
+    "content_scripts": [
+        {
+
+            "js" : ["/src/contentScript.js"],
+            "matches" : [
+                "\u003Call_urls>"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "background": {
+       "service_worker": "/src/background.js"
+    },
+    "web_accessible_resources": [ {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "resources": [ 
+         "/src/injector.js"
+      ]
+    }],
+    "content_security_policy": {
+       "object-src": "self",
+       "script-src": "self"
+    }
+  }
