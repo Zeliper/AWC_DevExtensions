@@ -299,10 +299,7 @@ async function InitializeHotkey() {
         let tableData = buildHtml(`
             <tr>
             <td scope="row">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="hotkeyEnable">
-                    <label id="hotKeyFunc">${func}</label>
-                </div>
+                <label id="hotKeyFunc">${func}</label>
             </td>
             <td>
                 <label id="hotkey">${hotkey}</label>
@@ -313,7 +310,7 @@ async function InitializeHotkey() {
         }
     }
 
-    buildHotkeyTable("Property 표시 로테이션", "F8", false)
+    buildHotkeyTable("Property 표시 로테이션", "Alt + Q", false)
     //Load Settings    
     // let moduleSetting = await getModuleSettings();
     // if(moduleSetting){

@@ -22,6 +22,7 @@
         {
 
             "js" : ["/src/contentScript.js"],
+            "css" : ["/src/inject.css"],
             "matches" : [
                 "\u003Call_urls>"
             ],

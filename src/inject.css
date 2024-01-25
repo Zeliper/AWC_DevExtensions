@@ -1,0 +1,33 @@
+.aw-dev-hide{
+    display: none !important;
+}
+
+span.sw-property-name.aw-devtool-props {
+    line-break:auto;
+}
+
+.aw-layout-workarea label.sw-property:has(.aw-devtool-props) {
+    /* border-bottom: 1px;
+    border-top: 1px;
+    border-color: black;
+    border-style: dashed;
+    padding: 2px; */
+}
+
+.aw-layout-workarea label.sw-property:has(.aw-devtool-props) .sw-property-valWrapper {
+    display: none;
+}
+
+.dev-tool-grey{
+    color:rgb(18 0 255 / 41%);
+}
+
+.aw-devtool-tableprops{
+    display: block;
+    width: 100%;
+    line-break:auto;
+    color:rgba(5, 92, 49, 0.779);
+    border-bottom: 1px;
+    border-color: rgba(0, 0, 0, 0.238);
+    border-style:solid;
+}
