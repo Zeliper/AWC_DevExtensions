@@ -67,15 +67,16 @@ function InitializeAccordian() {
     function clickAccordian(e) {
         let accordianId = e.target.getAttribute("data-bs-target");
         let accordianPane = document.querySelector(accordianId);
-        if(e.target.classList.contains("collapsed")){
+        console.log(e);
+        if(e.target.getAttribute("aria-expanded") == "true"){
             //Expand 기능
-            e.target.classList.remove("collapsed");
-            accordianPane.classList.add("show");
+            // e.target.classList.remove("collapsed");
+            // accordianPane.classList.add("show");
             updateSettings(accordianId,true);
         }else{
             //Collapse 기능
-            e.target.classList.add("collapsed");
-            accordianPane.classList.remove("show");
+            // e.target.classList.add("collapsed");
+            // accordianPane.classList.remove("show");
             updateSettings(accordianId,false);
         }
     }

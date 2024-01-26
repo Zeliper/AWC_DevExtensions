@@ -31,7 +31,7 @@ let loadModules = async (moduleList) => {
                 case "ctx":
                     if(i[2]){
                         if(module.getCtx()){
-                            Object.defineProperty(window,i[0], {get: ()=>module.getCtx()});
+                            Object.defineProperty(window,i[0], {get: ()=>module.getCtx(), configurable: true});
                         }else{
                             window[i[0]] = module.ctx;
                         }
