@@ -1,0 +1,25 @@
+body{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-inline: 5px;
+}
+
+.tab-content{
+    height: calc(100% - 42px) !important;
+    border: rgb(222, 226, 230);
+    border-width: 1px;
+    border-style: solid;
+    height: 100%;
+    border-radius: 5px;    
+    padding-top: 5px;
+    padding-inline: 15px;
+    overflow: auto;
+}
+
+.nav.nav-tabs{
+    border-bottom: none;
+}
+
+.tab-pane.show.active{
+    min-height: 600px;
+}

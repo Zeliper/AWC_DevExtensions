@@ -62,6 +62,7 @@ chrome.runtime.onMessage.addListener( function( request, sender, sendResponse ) 
             console.log( "Tab not found in connection list." );
         }
     } else {
-        console.log( "sender.tab not defined." );
+
+        //console.log( "sender.tab not defined." );
     }
 } );

@@ -14,10 +14,11 @@
     },
     "permissions": [ 
       "debugger",
-      "storage" 
+      "storage" ,
+      "sidePanel"
    ],
     "host_permissions": [ "http://*/*", "https://*/*" ],
-    "devtools_page": "/src/devtools/devtool.html",
+    "devtools_page": "/src/devtools/devtools.html",
     "content_scripts": [
         {
 

@@ -1,7 +1,53 @@
 function getReactFiberProps (elem) {
-    let fiberKey = Object.keys(elem).filter(e=>e.indexOf('__reactFiber') > -1)[0];
-    return elem[fiberKey].return.memoizedProps;
+    try{
+        let fiberKeys = [];
+        let isEnded = false;
+        let scopeElem = elem;
+        while(!isEnded){
+            fiberKeys = Object.keys(scopeElem).filter(e=>e.indexOf('__reactFiber') > -1);
+            if(fiberKeys.length == 0){
+                scopeElem = scopeElem.parentElement;
+                if(scopeElem.tagName == "HTML"){
+                    isEnded = true;
+                }
+            }else{
+                isEnded = true;
+            }
+        }
+        if(fiberKeys.length != 0){
+            return scopeElem[fiberKeys[0]].return.memoizedProps;
+        }
+        return null;
+    }catch(e){
+        return null;
+    }
 }
+
+function getReactFiber (elem) {
+    try{
+        let fiberKeys = [];
+        let isEnded = false;
+        let scopeElem = elem;
+        while(!isEnded){
+            fiberKeys = Object.keys(scopeElem).filter(e=>e.indexOf('__reactFiber') > -1);
+            if(fiberKeys.length == 0){
+                scopeElem = scopeElem.parentElement;
+                if(scopeElem.tagName == "HTML"){
+                    isEnded = true;
+                }
+            }else{
+                isEnded = true;
+            }
+        }
+        if(fiberKeys.length != 0){
+            return scopeElem[fiberKeys[0]]
+        }
+        return null;
+    }catch(e){
+        return null;
+    }
+}
+
 
 function buildHtml(html){
     const temp = document.createElement('template');
@@ -104,6 +150,34 @@ const config = { attributes: true, childList: true, subtree: true, attributeOldV
 let observer;
 let tableObserver;
 
+function checkNullValue(elemData) {
+    switch (elemData.vmo.props[elemData.name].type) {
+        case "DATE":
+            if (elemData.getValue() == 0) return null;
+            return elemData.getValue();
+        default:
+            return elemData.getValue();
+    }
+}
+
+function checkIsSame(elemData, checkValue) {
+    switch (elemData.vmo.props[elemData.name].type) {
+        case "BOOLEAN":
+            return String(elemData.getValue()) == checkValue
+        case "DATE":
+            {
+                if (isNaN(parseInt(checkValue))) {
+                    return elemData.getValue() == 0
+                } else {
+                    elemData.getValue() == parseInt(checkValue)
+                }
+            }
+            return
+        default:
+            return elemData.getValue() == checkValue;
+    }
+}
+
 function viewProperty(initial = 0){
     let stage = sessionStorage.getItem('stage')
     stage = stage ? stage : 0;
@@ -142,13 +216,32 @@ function viewProperty(initial = 0){
                         <span class="sw-property-name aw-devtool-props">${elemData.label} <span class="dev-tool-grey">[${elemData.name}]</span></span>
                     `));
                     elem.appendChild(buildHtml(`
-                        <span class="sw-property-val aw-devtool-props">${elemData.vmo.props[elemData.name].displayValues.join(', ')} <span class="dev-tool-grey">[${elemData.value}]</span></span>
+                        <span class="sw-property-val aw-devtool-props" ${checkNullValue(elemData) ? `value="${elemData.getValue()}"`: ``}>${elemData.vmo.props[elemData.name].displayValues.join(', ')} <span class="dev-tool-grey">[${elemData.getValue()}]</span></span>
                     `));
                     
                     elem.querySelectorAll(`:is(.sw-property-name, .sw-property-val):not(:is(.aw-devtool-props, .aw-devtool-org-props))`).forEach(orgElem=>{
                         orgElem.classList.add("aw-devtool-org-props");
                         orgElem.classList.add("aw-dev-hide");
                     });
+                }
+                    
+                function updateWorkareaPropertyVal(elem) {
+                    let elemData = getReactFiberProps(elem);
+                    let propertyVal = elem.querySelector(`.sw-property-val.aw-devtool-props`);
+                    let orgProps = elem.querySelector(`.sw-property-val.aw-devtool-org-props`);
+                    if (!elemData || !propertyVal || !orgProps) {
+                        return;
+                    }
+
+                    if (!checkIsSame(elemData, propertyVal.getAttribute("value"))) {
+                        if (checkNullValue(elemData)) {
+                            propertyVal.setAttribute("value", elemData.getValue());   
+                            propertyVal.innerHTML = `${orgProps.textContent} <span class="dev-tool-grey">[${elemData.getValue()}]</span>`   
+                        } else {
+                            propertyVal.removeAttribute("value");
+                            propertyVal.innerHTML = `<span class="dev-tool-grey">[${elemData.getValue()}]</span>`   
+                        }
+                    }
                 }
 
                 //FirstToggle!
@@ -167,6 +260,9 @@ function viewProperty(initial = 0){
                     });
                     document.querySelectorAll(`.aw-layout-workarea .sw-property:not(:has(.aw-devtool-props))`).forEach(e=>{
                         setWorkareaProperty(e);
+                    })
+                    document.querySelectorAll(`.aw-layout-workarea .sw-property:has(.aw-devtool-props)`).forEach(e=>{
+                        updateWorkareaPropertyVal(e);
                     })
                 });
                 observer.observe(document.body, config);
@@ -205,13 +301,32 @@ function viewProperty(initial = 0){
                         <span class="sw-property-name aw-devtool-props">${elemData.name}</span>
                     `));
                     elem.appendChild(buildHtml(`
-                        <span class="sw-property-val aw-devtool-props">${elemData.value}</span>
+                        <span class="sw-property-val aw-devtool-props" ${checkNullValue(elemData) ? `value="${elemData.getValue()}">${elemData.getValue()}</span>`: `</span>`}
                     `));
                     
                     elem.querySelectorAll(`:is(.sw-property-name, .sw-property-val):not(:is(.aw-devtool-props, .aw-devtool-org-props))`).forEach(orgElem=>{
                         orgElem.classList.add("aw-devtool-org-props");
                         orgElem.classList.add("aw-dev-hide");
                     });
+                }
+                    
+                function updateWorkareaPropertyVal(elem) {
+                    let elemData = getReactFiberProps(elem);
+                    let propertyVal = elem.querySelector(`.sw-property-val.aw-devtool-props`);
+                    let orgProps = elem.querySelector(`.sw-property-val.aw-devtool-org-props`);
+                    if (!elemData || !propertyVal || !orgProps) {
+                        return;
+                    }
+
+                    if (!checkIsSame(elemData, propertyVal.getAttribute("value"))) {
+                        if (checkNullValue(elemData)) {
+                            propertyVal.setAttribute("value", elemData.getValue());   
+                            propertyVal.textContent = elemData.getValue();  
+                        } else {
+                            propertyVal.removeAttribute("value");
+                            propertyVal.textContent = orgProps.textContent;   
+                        }
+                    }
                 }
 
                 document.querySelectorAll(`.aw-layout-headerPropContainer .sw-property`).forEach(e => {
@@ -232,6 +347,10 @@ function viewProperty(initial = 0){
                     });
                     document.querySelectorAll(`.aw-layout-workarea .sw-property:not(:has(:is(.aw-devtool-props, .aw-devtool-org-props)))`).forEach(e=>{
                         setWorkareaProperty(e);
+                    })
+                    
+                    document.querySelectorAll(`.aw-layout-workarea .sw-property:has(.aw-devtool-props)`).forEach(e=>{
+                        updateWorkareaPropertyVal(e);
                     })
                 });
                 observer.observe(document.body, config);
@@ -298,3 +417,9 @@ document.addEventListener('keyup', doc_keyUp, false);
 
 //Initialize Session Variable
 sessionStorage.setItem('stage', 0);
+
+window.isSWFApp = true;
+
+window.retrive = function retrive(e){
+    return getReactFiber(e);
+}
